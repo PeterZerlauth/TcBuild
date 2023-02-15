@@ -6,8 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using TcBuild;
-using tcBuild;
+using EnvDTE;
 
 namespace TcRelease
 {
@@ -16,43 +15,76 @@ namespace TcRelease
         
         static void Main(string[] args)
         {
-            Console.WriteLine("TcRelease");
+            Console.WriteLine("==============================================================================");
+            Console.WriteLine("TcRelease.exe");
+            Console.WriteLine("==============================================================================");
             Console.WriteLine("A Twincat 3 library release tool");
-            string SolutionFilePath = null;
-            string ProjectName = null;
-            string LibaryName = null;
-            string OutputPath = null;
+            string? SolutionFilePath = @"C:\source\repos\Project\Project.sln";
+            string? ProjectName = @"Project";
+            string? LibaryName = @"Library";
+            string? OutputPath = @"C:\source\repos\Project";
+            string? Command = @"Build";
+            string? Install = "False";
+            string? Help = null;
             OptionSet options = new OptionSet()
+                .Add("-c=|c=|Command=", "Build / Release", v => Command = v)
                 .Add("-v=|v=|SolutionFilePath=", "The full path to the TwinCAT project (sln-file)", v => SolutionFilePath = v)
                 .Add("-p=|p=|ProjectName=", "TwinCAT project name", v => ProjectName = v)
                 .Add("-l=|l=|LibaryName=", "TwinCAT Library name", w => LibaryName = w)
-                .Add("-o=|o=|OutputPath=", "Output path for twincat library", w => OutputPath = w);
-
+                .Add("-o=|o=|OutputPath=", "Output path for twincat library", w => OutputPath = w)
+                .Add("-i=|i=|Install=", "Install Library True/False", v => Command = v)
+                .Add("-h=|h|?=|Help=", "Help", v => Help = v);
             options.Parse(args);
             if (SolutionFilePath == null)
             {
-                SolutionFilePath = @"C:\source\repos\Project\Project.sln";
-                ProjectName = @"Project";
-                LibaryName = @"Library";
-                OutputPath = @"C:\source\repos\Project";
+                
             }
+            bool install = false;
+            try
+            {
+                install = Convert.ToBoolean(Install);
+            }
+            catch            
+            {
+                install = false;
+                Console.WriteLine($"Install set to False");
+            }
+            
+
 
             Helper helper = new Helper();
-            Console.WriteLine($"Administrator: {helper.Administrator()}");
+            if (!helper.Administrator())
+            {
+                Console.WriteLine($"No administrator rights can cause problems with a build agent");
+            }
+            Console.WriteLine("==============================================================================");
+
 
             Solution solution = new Solution();
-            Console.WriteLine("Solution Open");
+            Console.WriteLine($"Solution Open: {SolutionFilePath}");
             solution.Open(SolutionFilePath);
-            Console.WriteLine("Solution Project Open");
+            Console.WriteLine($"Project Open: {ProjectName}");
             solution.Project.Open(ProjectName);
-            Console.WriteLine("CheckAllObjects");
-            solution.Project.CheckAllObjects(LibaryName);
-            Console.WriteLine("BuildLibrary");
-            solution.Project.BuildLibrary(OutputPath, LibaryName, false);
-            Console.WriteLine("StartRestartTwinCAT");
-            solution.Project.StartRestartTwinCAT();
+            if (Command.ToLower() == "release")
+            {
+                Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
+                Console.WriteLine($"BuildLibrary: {OutputPath}/{LibaryName}.library");
+                solution.Project.BuildLibrary(OutputPath, LibaryName, install);
+            }
+            if (Command.ToLower() == "build")
+            {
+              
+                Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
+                Console.WriteLine($"Generate Boot Project: {LibaryName}");
+                //solution.Project.GenerateBootProject(LibaryName);
+                Console.WriteLine($"Activate Configuration:");
+                solution.Project.ActivateConfiguration();
+                //Console.WriteLine("StartRestartTwinCAT");
+                //solution.Project.StartRestartTwinCAT();
+            }
 
-
+            solution.Close();
+            Console.WriteLine("==============================================================================");
         }
     }
 }

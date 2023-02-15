@@ -3,7 +3,7 @@ using EnvDTE;
 using EnvDTE80;
 using TcRelease;
 
-namespace TcBuild
+namespace TcRelease
 {
     internal class Solution : IDisposable
     {
@@ -29,12 +29,14 @@ namespace TcBuild
             System.IO.File.Exists(solutionFilePath);
             MessageFilter.Register();
             dte.Solution.Open(solutionFilePath);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
             MessageFilter.Revoke();
         }
 
         public void Close()
         {
+         
+
             if (dte.Solution != null)
             {
                 if (dte.Solution.IsOpen) 
@@ -42,6 +44,7 @@ namespace TcBuild
                     dte.Solution.Close();
                 }
             }
+            dte.Quit();
             MessageFilter.Revoke();
         }
 

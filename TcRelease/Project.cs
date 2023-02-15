@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCatSysManagerLib;
 
-namespace TcBuild
+namespace TcRelease
 {
     internal class Project
     {
@@ -73,7 +73,10 @@ namespace TcBuild
                 }
             }
             return false;
+       
         }
+
+        
 
         public bool CheckAllObjects(string LibaryName)
         {

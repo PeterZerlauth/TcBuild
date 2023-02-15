@@ -2,7 +2,7 @@
 using System;
 using System.Security.Principal;
 
-namespace tcBuild
+namespace TcRelease
 {
     class Helper
     {
