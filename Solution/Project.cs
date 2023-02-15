@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TCatSysManagerLib;
 
-namespace TcRelease
+namespace XAE
 {
-    internal class Project
+    public class Project
     {
         private EnvDTE.Solution? Solution = null;
         private ITcSysManager? project = null;
@@ -20,21 +20,25 @@ namespace TcRelease
 
         public bool Open(string projectName)
         {
-            MessageFilter.Register();
-            if (Solution != null )
+            bool result = false;
+            if (!String.IsNullOrEmpty(projectName))
             {
-                foreach (EnvDTE.Project Project in Solution.Projects)
+               
+                MessageFilter.Register();
+                if (Solution != null)
                 {
-                    if (Project.Name == projectName)
+                    foreach (EnvDTE.Project Project in Solution.Projects)
                     {
-                        project = (ITcSysManager)Project.Object;
-                        MessageFilter.Revoke();
-                        return true;
+                        if (Project.Name == projectName)
+                        {
+                            project = (ITcSysManager)Project.Object;
+                            MessageFilter.Revoke();
+                            result =  true;
+                        }
                     }
                 }
             }
-            MessageFilter.Revoke();
-            return false;
+            return result;
         }
 
         public void Delete()
@@ -80,12 +84,17 @@ namespace TcRelease
 
         public bool CheckAllObjects(string LibaryName)
         {
-            if (project!= null) {
-                ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
-                ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
-                if (iecProject != null)
+            if (!String.IsNullOrEmpty(LibaryName))
+            {
+                if (project != null)
                 {
-                    return iecProject.CheckAllObjects();
+                    ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                    ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
+                    if (iecProject != null)
+                    {
+                        return iecProject.CheckAllObjects();
+                    }
+                    return false;
                 }
                 return false;
             }
@@ -94,16 +103,20 @@ namespace TcRelease
 
         public bool BuildLibrary(string OutputPath, string LibaryName, bool Install)
         {
-            string outputPath = Path.GetFullPath(OutputPath + "\\" + LibaryName + ".library").Replace("\\", "/");
-            Directory.Exists(outputPath);
-            if (project != null)
+            if (!String.IsNullOrEmpty(OutputPath) && !String.IsNullOrEmpty(LibaryName))
             {
-                ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
-                ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
-                if (iecProject != null)
+                string outputPath = Path.GetFullPath(OutputPath + "\\" + LibaryName + ".library").Replace("\\", "/");
+                Directory.Exists(outputPath);
+                if (project != null)
                 {
-                    iecProject.SaveAsLibrary(outputPath, Install);
-                    return true;
+                    ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                    ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
+                    if (iecProject != null)
+                    {
+                        iecProject.SaveAsLibrary(outputPath, Install);
+                        return true;
+                    }
+                    return false;
                 }
                 return false;
             }

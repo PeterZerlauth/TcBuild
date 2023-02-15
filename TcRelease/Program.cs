@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using EnvDTE;
+using XAE;
 
 namespace TcRelease
 {
@@ -60,20 +60,15 @@ namespace TcRelease
             Console.WriteLine("==============================================================================");
 
 
-            Solution solution = new Solution();
+            XAE.Solution solution = new XAE.Solution();
             Console.WriteLine($"Solution Open: {SolutionFilePath}");
             solution.Open(SolutionFilePath);
             Console.WriteLine($"Project Open: {ProjectName}");
-            solution.Project.Open(ProjectName);
-            if (Command.ToLower() == "release")
-            {
-                Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
-                Console.WriteLine($"BuildLibrary: {OutputPath}/{LibaryName}.library");
-                solution.Project.BuildLibrary(OutputPath, LibaryName, install);
-            }
+            Console.WriteLine($"Project Open: {solution.Project.Open(ProjectName)}");
+
             if (Command.ToLower() == "build")
             {
-              
+
                 Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
                 Console.WriteLine($"Generate Boot Project: {LibaryName}");
                 //solution.Project.GenerateBootProject(LibaryName);
@@ -81,6 +76,12 @@ namespace TcRelease
                 solution.Project.ActivateConfiguration();
                 //Console.WriteLine("StartRestartTwinCAT");
                 //solution.Project.StartRestartTwinCAT();
+            }
+            else
+            {
+                Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
+                Console.WriteLine($"BuildLibrary: {OutputPath}/{LibaryName}.library");
+                solution.Project.BuildLibrary(OutputPath, LibaryName, install);
             }
 
             solution.Close();
