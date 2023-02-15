@@ -2,9 +2,6 @@
 # A Twincat 3 Library Release and Build tool
 
 
-![grafik](https://user-images.githubusercontent.com/48495545/189485652-f0c86864-eda5-4684-99c1-c0160dd541fb.png)
-
-
 
 <a href="https://www.buymeacoffee.com/9wjvwz24g6b"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=9wjvwz24g6b&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
