@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)resources\&quot;  &quot;$(OutDir)resources\&quot;" />
+    <Exec Command="xcopy $(ProjectDir)\resources $(OutDir)" />
   </Target>
 
 </Project>

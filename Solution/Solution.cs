@@ -5,7 +5,7 @@ namespace XAE
 {
     public class Solution : IDisposable
     {
-
+        private const string ProgID = "TcXaeShell.DTE.15.0";
         public Project Project;
         private EnvDTE80.DTE2 dte;
         private bool disposedValue;
@@ -15,8 +15,8 @@ namespace XAE
             try
             {
                 Type type = null;
-                type = Type.GetTypeFromProgID("TcXaeShell.DTE.15.0");
-                dte = (EnvDTE80.DTE2)System.Activator.CreateInstance(type);
+                type = Type.GetTypeFromProgID(ProgID);
+                dte = (EnvDTE80.DTE2)Activator.CreateInstance(type);
                 dte.SuppressUI = true;
                 dte.MainWindow.Visible = false;
                 dte.UserControl = false;
