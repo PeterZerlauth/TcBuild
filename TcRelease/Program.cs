@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using XAE;
+using TcXae;
 
 namespace TcRelease
 {
@@ -60,7 +60,7 @@ namespace TcRelease
             Console.WriteLine("==============================================================================");
 
 
-            XAE.Solution solution = new XAE.Solution();
+            TcXae.Solution solution = new TcXae.Solution();
             Console.WriteLine($"Solution Open: {SolutionFilePath}");
             solution.Open(SolutionFilePath);
             Console.WriteLine($"Project Open: {ProjectName}");

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Solution\XAE.csproj" />
+    <ProjectReference Include="..\TcXaeSolution\TcXaeSolution.csproj" />
   </ItemGroup>
 
 </Project>

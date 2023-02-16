@@ -1,7 +1,7 @@
 ﻿using System;
 using EnvDTE;
 
-namespace XAE
+namespace TcXae
 {
     public class Solution : IDisposable
     {

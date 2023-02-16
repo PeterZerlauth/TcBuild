@@ -1,5 +1,5 @@
 using System;
-using XAE;
+using TcXae;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Runtime.CompilerServices;
 
@@ -9,12 +9,12 @@ namespace TcReleaseTest
     public class UnitTest1
     {
         string solutionFilePath = "";
-        string ProjectName = @"Project";
+        string projectName = @"TwinCATProject";
         string LibaryName = @"Library";
         string OutputPath = @"C:\source\repos\Project";
         string Command = @"Build";
         string Install = "False";
-        static XAE.Solution solution = new XAE.Solution();
+        static TcXae.Solution solution = new TcXae.Solution();
 
 
         [TestMethod, Timeout(10000)]
@@ -24,12 +24,10 @@ namespace TcReleaseTest
             Assert.IsTrue(File.Exists(solutionFilePath), "Solution.Exists");
         }
 
-
-
         [TestMethod, Timeout(10000)]
         public void TestMethod2()
         {
-            solution = new XAE.Solution();
+            solution = new TcXae.Solution();
             Assert.IsTrue(solution!=null, "Solution");
         }
 
@@ -43,7 +41,7 @@ namespace TcReleaseTest
         [TestMethod, Timeout(10000)]
         public void TestMethod4()
         {
-            bool result = solution.Project.Open(ProjectName);
+            bool result = solution.Project.Open(projectName);
             Assert.IsTrue(result, "Project.Open");
         }
 

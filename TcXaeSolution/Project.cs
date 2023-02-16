@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCatSysManagerLib;
 
-namespace XAE
+namespace TcXae
 {
     public class Project
     {

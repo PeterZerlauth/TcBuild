@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.OLE.Interop;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace XAE
+namespace TcXae
 {
     class MessageFilter : IOleMessageFilter
     {
