@@ -14,7 +14,7 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod01()
         {
-            string solutionFilePath = Directory.GetCurrentDirectory() + "//resources//TwinCATProject//TwinCATProject.sln";
+            string solutionFilePath = Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject\\TwinCATProject.sln";
             Assert.IsTrue(File.Exists(solutionFilePath), "Solution.Exists");
         }
 
@@ -27,7 +27,7 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod03()
         {
-            string solutionFilePath = Directory.GetCurrentDirectory() + "//resources//TwinCATProject//TwinCATProject.sln";
+            string solutionFilePath = Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject\\TwinCATProject.sln";
             bool result = solution.Open(solutionFilePath);
             Assert.IsTrue(result, "solution.Open");
         }
