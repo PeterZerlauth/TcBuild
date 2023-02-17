@@ -9,8 +9,7 @@ namespace TcReleaseTest
     public class UnitTest1
     {
 
-        static TcXae.Solution solution;
-
+        static TcXae.Solution solution = new TcXae.Solution();
 
         [TestMethod]
         public void TestMethod01()
@@ -22,8 +21,7 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod02()
         {
-            solution = new TcXae.Solution();
-            Assert.IsTrue(solution!=null, "Solution");
+            Assert.IsTrue(solution != null, "Solution");
         }
 
         [TestMethod]

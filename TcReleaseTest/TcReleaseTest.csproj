@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="resources\" />
+    <None Include="resources\TwinCATProject\TwinCATProject\TwinCATProject.sln" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +26,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)resources&quot;  &quot;$(OutDir)resources&quot; /E /Y" />
+    <Exec Command="xcopy $(ProjectDir)resources $(OutDir)resources /E /Y" />
   </Target>
 
 </Project>
