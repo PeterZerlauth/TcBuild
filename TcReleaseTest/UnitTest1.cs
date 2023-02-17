@@ -8,74 +8,71 @@ namespace TcReleaseTest
     [TestClass]
     public class UnitTest1
     {
-        string solutionFilePath = "";
-        string projectName = @"TwinCATProject";
-        string LibaryName = @"Library";
-        string OutputPath = @"C:\source\repos\Project";
-        string Command = @"Build";
-        string Install = "False";
+    
         static TcXae.Solution solution = new TcXae.Solution();
 
 
-        [TestMethod, Timeout(10000)]
-        public void TestMethod1()
+        [TestMethod]
+        public void TestMethod01()
         {
             string solutionFilePath = Directory.GetCurrentDirectory() + "//resources//TwinCATProject//TwinCATProject.sln";
             Assert.IsTrue(File.Exists(solutionFilePath), "Solution.Exists");
         }
 
-        [TestMethod, Timeout(10000)]
-        public void TestMethod2()
+        [TestMethod]
+        public void TestMethod02()
         {
             solution = new TcXae.Solution();
             Assert.IsTrue(solution!=null, "Solution");
         }
 
-        [TestMethod, Timeout(10000)]
-        public void TestMethod3()
+        [TestMethod]
+        public void TestMethod03()
         {
+            string solutionFilePath = Directory.GetCurrentDirectory() + "//resources//TwinCATProject//TwinCATProject.sln";
             bool result = solution.Open(solutionFilePath);
             Assert.IsTrue(result, "solution.Open");
         }
 
-        [TestMethod, Timeout(10000)]
-        public void TestMethod4()
+        [TestMethod]
+        public void TestMethod04()
         {
-            bool result = solution.Project.Open(projectName);
+            bool result = solution.Project.Open("TwinCATProject");
             Assert.IsTrue(result, "Project.Open");
         }
 
-        [TestMethod, Timeout(10000)]
-        public void TestMethod5()
+        [TestMethod]
+        public void TestMethod05()
         {
-            bool result = solution.Project.CheckAllObjects(LibaryName);
+            bool result = solution.Project.CheckAllObjects("Libary");
             Assert.IsTrue(result, "CheckAllObjects");
         }
-        [TestMethod, Timeout(10000)]
-        public void TestMethod6()
+        [TestMethod]
+        public void TestMethod06()
         {
-            bool result = solution.Project.BuildLibrary(OutputPath, LibaryName, false);
+            string OutputPath = Directory.GetCurrentDirectory() + "//output";
+            bool result = solution.Project.BuildLibrary(OutputPath, "Libary", false);
             Assert.IsTrue(result, "BuildLibrary");
         }
-        [TestMethod, Timeout(10000)]
-        public void TestMethod7()
+        [TestMethod]
+        public void TestMethod07()
         {
             bool result = solution.Project.StartRestartTwinCAT();
             Assert.IsTrue(result, "StartRestartTwinCAT");
         }
-        [TestMethod, Timeout(10000)]
-        public void TestMethod8()
+        [TestMethod]
+        public void TestMethod08()
         {
             bool result = solution.Project.ActivateConfiguration();
             Assert.IsTrue(result, "ActivateConfiguration");
         }
-        [TestMethod, Timeout(10000)]
-        public void TestMethod9()
+        [TestMethod]
+        public void TestMethod09()
         {
             bool result = solution.Project.Save();
             Assert.IsTrue(result, "Project.Save");
         }
-        [TestMethod, Timeout(10000)]
+        [TestMethod]
         public void TestMethod10()
         {
             bool result = solution.Close();
