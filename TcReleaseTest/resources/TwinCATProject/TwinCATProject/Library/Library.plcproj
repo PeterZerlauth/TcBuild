@@ -25,6 +25,11 @@
     <Author>Peter Zerlauth</Author>
     <PreserveCompiledLibComments>true</PreserveCompiledLibComments>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="Library.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>

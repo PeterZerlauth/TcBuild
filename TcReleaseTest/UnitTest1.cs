@@ -8,8 +8,8 @@ namespace TcReleaseTest
     [TestClass]
     public class UnitTest1
     {
-    
-        static TcXae.Solution solution = new TcXae.Solution();
+
+        static TcXae.Solution solution;
 
 
         [TestMethod]
@@ -44,42 +44,59 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod05()
         {
-            bool result = solution.Project.CheckAllObjects("Libary");
+            bool result = solution.Project.CheckAllObjects("Library");
             Assert.IsTrue(result, "CheckAllObjects");
         }
         [TestMethod]
         public void TestMethod06()
         {
-            string OutputPath = Directory.GetCurrentDirectory() + "//output";
-            bool result = solution.Project.BuildLibrary(OutputPath, "Libary", false);
+            string OutputPath = Directory.GetCurrentDirectory();
+            bool result = solution.Project.BuildLibrary(OutputPath, "Library", false);
             Assert.IsTrue(result, "BuildLibrary");
         }
+
+
         [TestMethod]
         public void TestMethod07()
         {
-            bool result = solution.Project.StartRestartTwinCAT();
-            Assert.IsTrue(result, "StartRestartTwinCAT");
+            string result = solution.Project.NetId;
+            Assert.IsTrue(result != "", "Get NetId");
         }
+
         [TestMethod]
         public void TestMethod08()
         {
             bool result = solution.Project.ActivateConfiguration();
             Assert.IsTrue(result, "ActivateConfiguration");
         }
+
         [TestMethod]
         public void TestMethod09()
+        {
+            bool result = solution.Project.GenerateBootProject("Control");
+            Assert.IsTrue(result, "GenerateBootProject");
+        }
+
+
+        [TestMethod]
+        public void TestMethod10()
+        {
+            bool result = solution.Project.StartRestartTwinCAT();
+            Assert.IsTrue(result, "StartRestartTwinCAT");
+        }
+
+        [TestMethod]
+        public void TestMethod11()
         {
             bool result = solution.Project.Save();
             Assert.IsTrue(result, "Project.Save");
         }
         [TestMethod]
-        public void TestMethod10()
+        public void TestMethod12()
         {
             bool result = solution.Close();
             Assert.IsTrue(result, "solution.Close()");
             
         }
-
-
     }
 }

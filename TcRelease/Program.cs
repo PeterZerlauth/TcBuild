@@ -17,13 +17,14 @@ namespace TcRelease
         {
             Console.WriteLine("==============================================================================");
             Console.WriteLine("TcRelease.exe");
-            Console.WriteLine("==============================================================================");
             Console.WriteLine("A Twincat 3 library release tool");
-            string? SolutionFilePath = @"C:\source\repos\Project\Project.sln";
-            string? ProjectName = @"Project";
-            string? LibaryName = @"Library";
-            string? OutputPath = @"C:\source\repos\Project";
-            string? Command = @"Build";
+            Console.WriteLine("==============================================================================");
+            
+            string? SolutionFilePath = @"C:\source\repos\TwinCATProject\TwinCATProject.sln";
+            string? ProjectName = @"TwinCATProject";
+            string? LibaryName = @"Control";
+            string? OutputPath = @"C:\source\repos\TwinCATProject";
+            string? Command = @"build";
             string? Install = "False";
             string? Help = null;
             OptionSet options = new OptionSet()
@@ -57,21 +58,20 @@ namespace TcRelease
             {
                 Console.WriteLine($"No administrator rights can cause problems with a build agent");
             }
-            Console.WriteLine("==============================================================================");
 
 
             TcXae.Solution solution = new TcXae.Solution();
             Console.WriteLine($"Solution Open: {SolutionFilePath}");
             solution.Open(SolutionFilePath);
             Console.WriteLine($"Project Open: {ProjectName}");
-            Console.WriteLine($"Project Open: {solution.Project.Open(ProjectName)}");
+            solution.Project.Open(ProjectName);
 
             if (Command.ToLower() == "build")
             {
 
                 Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
                 Console.WriteLine($"Generate Boot Project: {LibaryName}");
-                //solution.Project.GenerateBootProject(LibaryName);
+                solution.Project.GenerateBootProject(LibaryName);
                 Console.WriteLine($"Activate Configuration:");
                 solution.Project.ActivateConfiguration();
                 //Console.WriteLine("StartRestartTwinCAT");

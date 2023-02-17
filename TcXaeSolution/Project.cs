@@ -10,8 +10,8 @@ namespace TcXae
 {
     public class Project
     {
-        private EnvDTE.Solution? Solution = null;
-        private ITcSysManager? project = null;
+        private EnvDTE.Solution Solution;
+        private ITcSysManager15 systemManager;
 
         public Project (EnvDTE.Solution Solution) 
         { 
@@ -23,16 +23,14 @@ namespace TcXae
             bool result = false;
             if (!String.IsNullOrEmpty(projectName))
             {
-               
-                MessageFilter.Register();
                 if (Solution != null)
                 {
                     foreach (EnvDTE.Project Project in Solution.Projects)
                     {
                         if (Project.Name == projectName)
                         {
-                            project = (ITcSysManager)Project.Object;
-                            MessageFilter.Revoke();
+                            systemManager = (ITcSysManager15)Project.Object;
+
                             result =  true;
                         }
                     }
@@ -86,9 +84,9 @@ namespace TcXae
         {
             if (!String.IsNullOrEmpty(LibaryName))
             {
-                if (project != null)
+                if (systemManager != null)
                 {
-                    ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                    ITcSmTreeItem treeItem = systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
                     ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
                     if (iecProject != null)
                     {
@@ -107,9 +105,9 @@ namespace TcXae
             {
                 string outputPath = Path.GetFullPath(OutputPath + "\\" + LibaryName + ".library").Replace("\\", "/");
                 Directory.Exists(outputPath);
-                if (project != null)
+                if (systemManager != null)
                 {
-                    ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                    ITcSmTreeItem treeItem = systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
                     ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
                     if (iecProject != null)
                     {
@@ -125,13 +123,13 @@ namespace TcXae
 
         public bool GenerateBootProject(string PlcName)
         {
-            if(project!= null) 
+            if(systemManager!= null) 
             {
-                ITcSmTreeItem treeItem = project.LookupTreeItem($"TIPC^{PlcName}^{PlcName} Project");
-                project.StartRestartTwinCAT();
-                ITcPlcProject2 plcProject = (ITcPlcProject2)treeItem;
-                plcProject.BootProjectAutostart = true;
-                plcProject.GenerateBootProject();
+
+                ITcSmTreeItem treeItem = systemManager.LookupTreeItem($"TIPC^{PlcName}");
+                ITcPlcProject iecProjectRoot = (ITcPlcProject)treeItem;
+                iecProjectRoot.BootProjectAutostart = true;
+                iecProjectRoot.GenerateBootProject(true);
                 return true;
             }
             return false;
@@ -139,23 +137,31 @@ namespace TcXae
 
         public bool StartRestartTwinCAT()
         {
-            if (project!= null)
+            if (systemManager!= null)
             {
-                project.StartRestartTwinCAT();
-                return project.IsTwinCATStarted();
+                systemManager.StartRestartTwinCAT();
+                return systemManager.IsTwinCATStarted();
             }
             return false;
          
         }
         public bool ActivateConfiguration()
         {
-            if (project != null)
+            if (systemManager != null)
             {
-                project.ActivateConfiguration();
+                systemManager.ActivateConfiguration();
                 return true;
             }
             return false;
         }
-               
+
+        public string NetId
+        {
+            get => ((ITcSysManager2)systemManager).GetTargetNetId();
+            set => ((ITcSysManager2)systemManager).SetTargetNetId(value);
+        }
+
+
+
     }
 }

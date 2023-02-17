@@ -17,9 +17,9 @@ namespace TcXae
                 Type type = null;
                 type = Type.GetTypeFromProgID(ProgID);
                 dte = (EnvDTE80.DTE2)Activator.CreateInstance(type);
-                dte.SuppressUI = true;
-                dte.MainWindow.Visible = false;
-                dte.UserControl = false;
+                dte.SuppressUI = false;
+                dte.MainWindow.Visible = true;
+                dte.UserControl = true;
                 Project = new Project(dte.Solution);
             }
             catch
@@ -39,9 +39,9 @@ namespace TcXae
                 solutionFilePath = Path.GetFullPath(solutionFilePath).Replace("\\", "/");
                 System.IO.File.Exists(solutionFilePath);
                 MessageFilter.Register();
+                System.Threading.Thread.Sleep(500);
                 dte.Solution.Open(solutionFilePath);
-                System.Threading.Thread.Sleep(1000);
-                MessageFilter.Revoke();
+                System.Threading.Thread.Sleep(500);
             }
             return dte.Solution.IsOpen;
         }
