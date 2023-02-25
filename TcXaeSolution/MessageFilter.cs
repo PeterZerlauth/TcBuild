@@ -17,7 +17,7 @@ namespace TcXae
         public static void Register()
         {
             IOleMessageFilter newFilter = new MessageFilter();
-            IOleMessageFilter oldFilter = null;
+            IOleMessageFilter? oldFilter = null;
             int test = CoRegisterMessageFilter(newFilter, out oldFilter);
 
             if (test != 0)
@@ -31,7 +31,7 @@ namespace TcXae
         /// </summary>
         public static void Revoke()
         {
-            IOleMessageFilter oldFilter = null;
+            IOleMessageFilter? oldFilter = null;
             int test = CoRegisterMessageFilter(null, out oldFilter);
         }
 
@@ -95,7 +95,7 @@ namespace TcXae
 
         // Implement the IOleMessageFilter interface.
         [DllImport("Ole32.dll")]
-        private static extern int CoRegisterMessageFilter(IOleMessageFilter newFilter, out IOleMessageFilter oldFilter);
+        private static extern int CoRegisterMessageFilter(IOleMessageFilter? newFilter, out IOleMessageFilter oldFilter);
     }
 
     /// <summary>

@@ -1,8 +1,12 @@
 # TcRelease
 # A Twincat 3 Library Release and Build tool
 
-
-Example command: "C:\source\repos\TcRelease\TcRelease.exe" -c "Release" -v "c:\agent\_work\3\s\Tc3_Motion.sln" -p Tc3_Motion -l Tc3_Motion -o "c:\source"
+- task: CmdLine@2
+  displayName: Build Twincat 3 Library 
+  condition: succeeded()
+  inputs:
+        failOnStderr: true
+        script: '"C:\source\repos\TcRelease\TcRelease.exe" -c "Release" -v "$(System.DefaultWorkingDirectory)\Tc3_Machine.sln" -p Tc3_Machine -l Tc3_Machine -o "c:\source"'
 
 
 ![grafik](https://user-images.githubusercontent.com/48495545/219626574-c3afa70e-b82a-4424-8f51-657d1cbd2dc3.png)

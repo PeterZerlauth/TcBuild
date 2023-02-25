@@ -10,40 +10,48 @@ namespace TcXae
 {
     public class Project
     {
-        private EnvDTE.Solution Solution;
-        private ITcSysManager15 systemManager;
+        private EnvDTE.Solution _solution;
+        private ITcSysManager15? _systemManager;
 
         public Project (EnvDTE.Solution Solution) 
         { 
-            this.Solution = Solution;
+            this._solution = Solution;
         }
 
         public bool Open(string projectName)
         {
             bool result = false;
-            if (!String.IsNullOrEmpty(projectName))
+            try
             {
-                if (Solution != null)
+                if (!String.IsNullOrEmpty(projectName))
                 {
-                    foreach (EnvDTE.Project Project in Solution.Projects)
+                    if (_solution != null)
                     {
-                        if (Project.Name == projectName)
+                        foreach (EnvDTE.Project Project in _solution.Projects)
                         {
-                            systemManager = (ITcSysManager15)Project.Object;
+                            if (Project.Name == projectName)
+                            {
+                                _systemManager = (ITcSysManager15)Project.Object;
 
-                            result =  true;
+                                result = true;
+                            }
                         }
                     }
                 }
             }
+            catch
+            {
+                result = false;
+            }
+           
             return result;
         }
 
         public void Delete()
         {
-            if (Solution != null)
+            if (_solution != null)
             {
-                foreach (EnvDTE.Project Project in Solution.Projects)
+                foreach (EnvDTE.Project Project in _solution.Projects)
                 {
                     Project.Delete();
                 }
@@ -52,9 +60,9 @@ namespace TcXae
 
         public bool Save()
         {
-            if (Solution != null)
+            if (_solution != null)
             {
-                foreach (EnvDTE.Project Project in Solution.Projects)
+                foreach (EnvDTE.Project Project in _solution.Projects)
                 {
                     Project.Save();
                 }
@@ -64,9 +72,9 @@ namespace TcXae
 
         public bool Save(string projectName, string newFileName)
         {
-            if (Solution != null)
+            if (_solution != null)
             {
-                foreach (EnvDTE.Project Project in Solution.Projects)
+                foreach (EnvDTE.Project Project in _solution.Projects)
                 {
                     if (Project.Name == projectName)
                     {
@@ -84,9 +92,9 @@ namespace TcXae
         {
             if (!String.IsNullOrEmpty(LibaryName))
             {
-                if (systemManager != null)
+                if (_systemManager != null)
                 {
-                    ITcSmTreeItem treeItem = systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                    ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
                     ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
                     if (iecProject != null)
                     {
@@ -105,9 +113,9 @@ namespace TcXae
             {
                 string outputPath = Path.GetFullPath(OutputPath + "\\" + LibaryName + ".library").Replace("\\", "/");
                 Directory.Exists(outputPath);
-                if (systemManager != null)
+                if (_systemManager != null)
                 {
-                    ITcSmTreeItem treeItem = systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                    ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
                     ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
                     if (iecProject != null)
                     {
@@ -123,10 +131,10 @@ namespace TcXae
 
         public bool GenerateBootProject(string PlcName)
         {
-            if(systemManager!= null) 
+            if(_systemManager!= null) 
             {
 
-                ITcSmTreeItem treeItem = systemManager.LookupTreeItem($"TIPC^{PlcName}");
+                ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{PlcName}");
                 ITcPlcProject iecProjectRoot = (ITcPlcProject)treeItem;
                 iecProjectRoot.BootProjectAutostart = true;
                 iecProjectRoot.GenerateBootProject(true);
@@ -137,19 +145,19 @@ namespace TcXae
 
         public bool StartRestartTwinCAT()
         {
-            if (systemManager!= null)
+            if (_systemManager!= null)
             {
-                systemManager.StartRestartTwinCAT();
-                return systemManager.IsTwinCATStarted();
+                _systemManager.StartRestartTwinCAT();
+                return _systemManager.IsTwinCATStarted();
             }
             return false;
          
         }
         public bool ActivateConfiguration()
         {
-            if (systemManager != null)
+            if (_systemManager != null)
             {
-                systemManager.ActivateConfiguration();
+                _systemManager.ActivateConfiguration();
                 return true;
             }
             return false;
@@ -157,8 +165,23 @@ namespace TcXae
 
         public string NetId
         {
-            get => ((ITcSysManager2)systemManager).GetTargetNetId();
-            set => ((ITcSysManager2)systemManager).SetTargetNetId(value);
+            get
+            {
+                if (_systemManager != null)
+                {
+                    return ((ITcSysManager2)_systemManager).GetTargetNetId();
+                }
+                return "";
+
+            } 
+            set
+            {
+                if (_systemManager != null)
+                {
+                    ((ITcSysManager2)_systemManager).SetTargetNetId(value);
+                }
+               
+            }
         }
 
 

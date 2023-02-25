@@ -8,25 +8,27 @@ namespace TcReleaseTest
     public class UnitTest1
     {
 
-        static TcXae.Solution solution = new TcXae.Solution();
+        static TcXae.Solution solution;
+
 
         [TestMethod]
         public void TestMethod01()
         {
-            string solutionFilePath = Directory.GetCurrentDirectory() + "//resources//TwinCATProject//TwinCATProject.sln";
+            string solutionFilePath = Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject\\TwinCATProject.sln";
             Assert.IsTrue(File.Exists(solutionFilePath), "Solution.Exists");
         }
 
         [TestMethod]
         public void TestMethod02()
-        { 
+        {
+            solution = new TcXae.Solution();
             Assert.IsTrue(solution!=null, "Solution");
         }
 
         [TestMethod]
         public void TestMethod03()
         {
-            string solutionFilePath = Directory.GetCurrentDirectory() + "//resources//TwinCATProject//TwinCATProject.sln";
+            string solutionFilePath = Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject\\TwinCATProject.sln";
             bool result = solution.Open(solutionFilePath);
             Assert.IsTrue(result, "solution.Open");
         }
