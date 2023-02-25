@@ -2,34 +2,28 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{fdca37d7-f803-4a6d-bb4d-6c4fb0051f7b}</ProjectGuid>
+    <ProjectGuid>{f849ddd3-9e9c-4ad9-8ed4-e82202754526}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>Library</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{6c31bbe3-b2ae-49b8-9084-69c24eabc4c7}</Application>
-    <TypeSystem>{1b6a27b5-8888-44a7-a1da-a7a39c74a329}</TypeSystem>
-    <Implicit_Task_Info>{e0eee48d-f9b8-4a32-b4a1-14505afae5d7}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{48f41455-ebb3-4481-9795-e6cc7cf0681d}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{1f4e97ac-3de8-406d-a7f0-d6296d7bfa39}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{5de1030a-a9ad-4cb0-9b88-f58b054f0211}</LibraryReferences>
+    <Application>{4af1b4a5-9ee1-4b4c-ac54-a5f19936fc50}</Application>
+    <TypeSystem>{cf7db68c-be81-4402-88f0-e8efbd8e8bd8}</TypeSystem>
+    <Implicit_Task_Info>{90af72c5-aedd-46e5-9f19-899ab6136cb0}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{ab61f219-212d-42b1-9bcd-31e47e33e5ef}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{bd03b8a1-a09f-4845-85fd-436f25d4f215}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{d4e6ccce-b5ac-4441-9dcc-04284acfbfcd}</LibraryReferences>
+    <Company>Zerlauth</Company>
     <Released>false</Released>
-    <CombineIds>true</CombineIds>
-    <Company>No Company</Company>
     <Title>Library</Title>
     <ProjectVersion>0.0.0.0</ProjectVersion>
     <DefaultNamespace>Library</DefaultNamespace>
     <Placeholder>Library</Placeholder>
     <Author>Peter Zerlauth</Author>
-    <PreserveCompiledLibComments>true</PreserveCompiledLibComments>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="Library.tmc">
-      <SubType>Content</SubType>
-    </None>
-  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>

@@ -2,20 +2,19 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ae417187-b30f-484f-a5d9-79303b566837}</ProjectGuid>
+    <ProjectGuid>{7fe0807e-7cf0-4cc4-b69b-af4abbb192dd}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>Control</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{4c2131bd-8f6e-4ea9-ae0f-344c1a2f99f9}</Application>
-    <TypeSystem>{74208142-9049-46fe-b421-4a00bf447476}</TypeSystem>
-    <Implicit_Task_Info>{1cbd2951-e5f1-4d0c-a1b3-041c19509cfe}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{bbfc2fb0-7278-48b1-a0f9-b0115b91616c}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{cef2be55-bed3-4b96-ada7-4f076b448dbf}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{5c8c0248-7e47-4502-addc-6030afb1fef7}</LibraryReferences>
-    <Released>false</Released>
+    <Application>{b780d3aa-84ab-49e9-aefa-3cdb8d9b6ad1}</Application>
+    <TypeSystem>{b2d201b6-1f9a-44f3-8b57-6a1c878369a7}</TypeSystem>
+    <Implicit_Task_Info>{6de3b447-593d-45e6-8b63-bf31fab39d4d}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{58ac4638-2c76-4bba-a095-fed61354a347}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{149ff7b8-26ef-46b9-a025-b237c8cfb77a}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{411dbe1c-bb5b-4f22-9600-c7694110182a}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">
@@ -45,16 +44,11 @@
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Control.tmc">
-      <SubType>Content</SubType>
-    </None>
-  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
@@ -75,13 +69,13 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>
