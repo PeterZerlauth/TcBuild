@@ -1,5 +1,4 @@
 using System;
-using TcXae;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Runtime.CompilerServices;
 
@@ -9,8 +8,7 @@ namespace TcReleaseTest
     public class UnitTest1
     {
 
-        static TcXae.Solution solution;
-
+        static TcXae.Solution solution = new TcXae.Solution();
 
         [TestMethod]
         public void TestMethod01()
@@ -21,8 +19,7 @@ namespace TcReleaseTest
 
         [TestMethod]
         public void TestMethod02()
-        {
-            solution = new TcXae.Solution();
+        { 
             Assert.IsTrue(solution!=null, "Solution");
         }
 
