@@ -65,10 +65,11 @@ namespace TcXae
 
 
         //Build Solution
-        //public void Build(bool save)
-        //{
-        //}
-
+        public bool Build()
+        {
+            _dte.Solution.SolutionBuild.Build(true);
+            return true;
+        }
 
         protected virtual void Dispose(bool disposing)
         {

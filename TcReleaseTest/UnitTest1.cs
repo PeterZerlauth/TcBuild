@@ -21,21 +21,23 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod02()
         {
-            Assert.IsTrue(solution!=null, "Solution");
-        }
-
-        [TestMethod]
-        public void TestMethod03()
-        {
             string solutionFilePath = Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject\\TwinCATProject.sln";
             bool result = solution.Open(solutionFilePath);
             Assert.IsTrue(result, "solution.Open");
         }
 
+
+        [TestMethod]
+        public void TestMethod03()
+        {
+            bool result = solution.Project.Open("TwinCATProject");
+            Assert.IsTrue(result, "Project.Open");
+        }
+
         [TestMethod]
         public void TestMethod04()
         {
-            bool result = solution.Project.Open("TwinCATProject");
+            bool result = solution.Build();
             Assert.IsTrue(result, "Project.Open");
         }
 
