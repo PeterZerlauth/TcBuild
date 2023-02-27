@@ -67,6 +67,7 @@ namespace TcXae
         //Build Solution
         public bool Build()
         {
+            Task.Delay(1000).Wait();
             _dte.Solution.SolutionBuild.Build(true);
             return true;
         }
