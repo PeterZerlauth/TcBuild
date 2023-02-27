@@ -94,7 +94,6 @@ namespace TcXae
             {
                 if (_systemManager != null)
                 {
-                    Task.Delay(500).Wait();
                     ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
                     ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
                     if (iecProject != null)
