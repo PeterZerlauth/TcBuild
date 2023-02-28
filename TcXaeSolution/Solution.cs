@@ -41,9 +41,9 @@ namespace TcXae
             }
             catch (Exception)
             {
-                Task.Delay(1000).Wait();
+                Task.Delay(5000).Wait();
                 _dte.Solution.Open(solutionFilePath);
-                Task.Delay(1000).Wait();
+
             }
 
             if (_dte.Solution.IsDirty)
@@ -67,8 +67,8 @@ namespace TcXae
         //Build Solution
         public bool Build()
         {
-            Task.Delay(1000).Wait();
             _dte.Solution.SolutionBuild.Build(true);
+            Task.Delay(500).Wait();
             return true;
         }
 

@@ -31,11 +31,10 @@ namespace TcRelease
                 .Add("-o=|o=|OutputPath=", "Output path for twincat library", l => OutputPath = l)
                 .Add("-h=|h|?=|Help=", "Help", v => Help = v);
             options.Parse(args);
-    
-            
             Console.WriteLine("==============================================================================");
 
 
+            // Build
             TcXae.Solution solution = new TcXae.Solution();
             Console.WriteLine($"Solution Open: {SolutionFilePath} {solution.Open(SolutionFilePath)}");
             Console.WriteLine($"Project Open: {ProjectName} {solution.Project.Open(ProjectName)}");
@@ -44,6 +43,7 @@ namespace TcRelease
             solution.Project.BuildLibrary(OutputPath, LibaryName, true);
             if (solution.Project.Contains("Testing"))
             {
+                // Run
                 Console.WriteLine("Download Test programm");
             }
 
