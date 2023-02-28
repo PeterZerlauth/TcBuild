@@ -1,15 +1,10 @@
-using System;
 using System.IO.Compression;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Runtime.CompilerServices;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 
-namespace TcReleaseTest
+namespace UnitTests
 {
     [TestClass]
     public class UnitTest1
     {
-
         static TcXae.Solution solution = solution = new TcXae.Solution();
 
 
@@ -99,7 +94,7 @@ namespace TcReleaseTest
         {
             bool result = solution.Close();
             Assert.IsTrue(result, "solution.Close()");
-            
+
         }
     }
 }

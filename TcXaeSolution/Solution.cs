@@ -12,9 +12,9 @@ namespace TcXae
 
         public Solution()
         {
-            _dte.SuppressUI = false;
-            _dte.MainWindow.Visible = true;
-            _dte.UserControl = true;
+            _dte.SuppressUI = true;
+            _dte.MainWindow.Visible = false;
+            _dte.UserControl = false;
             _project = new Project(_dte.Solution);
         }
 
