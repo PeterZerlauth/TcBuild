@@ -184,7 +184,7 @@ namespace TcXae
             if (_systemManager!= null)
             {
                 _systemManager.StartRestartTwinCAT();
-                return _systemManager.IsTwinCATStarted();
+                return true;
             }
             return false;
          
