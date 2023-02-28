@@ -29,11 +29,23 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
 - task: VSTest@2
-  displayName: 'Running UnitTests'
   inputs:
-    testSelector: 'testAssemblies'
     platform: '$(buildPlatform)'
-    configuration: 'Debug'
-    codeCoverageEnabled: true
+    configuration: '$(buildConfiguration)'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*UnitTest*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)' 
+
+#- task: GitHubRelease@1
+#  inputs:
+#    repositoryName: '$(Build.Repository.Name)'
+#    action: 'create'
+#    target: '$(Build.SourceVersion)'
+#    tagSource: 'gitTag'
+#    isPreRelease: true
+#    changeLogCompareToRelease: 'lastFullRelease'
+#    changeLogType: 'commitBased'
