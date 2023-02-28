@@ -94,12 +94,21 @@ namespace TcXae
             {
                 if (_systemManager != null)
                 {
-                    ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
-                    ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
-                    if (iecProject != null)
+                    try
                     {
-                        return iecProject.CheckAllObjects();
+                        ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                        ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
+                        if (iecProject != null)
+                        {
+                            return iecProject.CheckAllObjects();
+                        }
                     }
+                    catch (Exception)
+                    {
+
+                        return false;
+                    }
+                   
                     return false;
                 }
                 return false;
@@ -115,15 +124,21 @@ namespace TcXae
                 Directory.Exists(outputPath);
                 if (_systemManager != null)
                 {
-                    Task.Delay(500).Wait();
-                    ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
-                    ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
-                    if (iecProject != null)
+                    try
                     {
-                        iecProject.SaveAsLibrary(outputPath, Install);
-                        return true;
+                        ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                        ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
+                        if (iecProject != null)
+                        {
+                            iecProject.SaveAsLibrary(outputPath, Install);
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
+                    catch (Exception)
+                    {
+                        return false;
+                    }
                 }
                 return false;
             }
