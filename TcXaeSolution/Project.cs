@@ -86,7 +86,27 @@ namespace TcXae
             return false;
         }
 
-        
+        public bool Contains(string Name)
+        {
+            if (_systemManager != null)
+            {
+                try
+                {
+                    ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{Name}^{Name} Project");
+                    ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
+                    if (iecProject != null)
+                    {
+                        return true;
+                    }
+                }
+                catch { return false; }
+            }
+            return false;
+
+        }
+
+
+
 
         public bool CheckAllObjects(string LibaryName)
         {

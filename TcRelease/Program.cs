@@ -17,65 +17,38 @@ namespace TcRelease
         {
             Console.WriteLine("==============================================================================");
             Console.WriteLine("TcRelease.exe");
-            Console.WriteLine("==============================================================================");
             Console.WriteLine("A Twincat 3 library release tool");
-            string? SolutionFilePath = @"C:\source\repos\Project\Project.sln";
-            string? ProjectName = @"Project";
+            string? SolutionFilePath = @"C:\source\repos\TcRelease\TcReleaseTest\bin\Debug\net6.0\resources\TwinCATProject.sln";
+            string? ProjectName = @"TwinCATProject";
             string? LibaryName = @"Library";
             string? OutputPath = @"C:\source\repos\Project";
-            string? Command = @"Build";
-            string? Install = "False";
+
             string? Help = null;
             OptionSet options = new OptionSet()
-                .Add("-c=|c=|Command=", "Build / Release", v => Command = v)
                 .Add("-v=|v=|SolutionFilePath=", "The full path to the TwinCAT project (sln-file)", v => SolutionFilePath = v)
                 .Add("-p=|p=|ProjectName=", "TwinCAT project name", v => ProjectName = v)
-                .Add("-l=|l=|LibaryName=", "TwinCAT Library name", w => LibaryName = w)
-                .Add("-o=|o=|OutputPath=", "Output path for twincat library", w => OutputPath = w)
-                .Add("-i=|i=|Install=", "Install Library True/False", v => Command = v)
+                .Add("-l=|l=|LibaryName=", "TwinCAT Library name", l => LibaryName = l)
+                .Add("-o=|o=|OutputPath=", "Output path for twincat library", l => OutputPath = l)
                 .Add("-h=|h|?=|Help=", "Help", v => Help = v);
             options.Parse(args);
-            if (SolutionFilePath == null)
-            {
-                
-            }
-            bool install = false;
-            try
-            {
-                install = Convert.ToBoolean(Install);
-            }
-            catch            
-            {
-                install = false;
-                Console.WriteLine($"Install set to False");
-            }
+    
             
             Console.WriteLine("==============================================================================");
 
 
             TcXae.Solution solution = new TcXae.Solution();
-            Console.WriteLine($"Solution Open: {SolutionFilePath}");
-            solution.Open(SolutionFilePath);
-            Console.WriteLine($"Project Open: {ProjectName}");
-            Console.WriteLine($"Project Open: {solution.Project.Open(ProjectName)}");
-
-            if (Command.ToLower() == "build")
+            Console.WriteLine($"Solution Open: {SolutionFilePath} {solution.Open(SolutionFilePath)}");
+            Console.WriteLine($"Project Open: {ProjectName} {solution.Project.Open(ProjectName)}");
+            Console.WriteLine($"CheckAllObjects: {LibaryName} {solution.Project.CheckAllObjects(LibaryName)}");
+            Console.WriteLine($"BuildLibrary: {OutputPath}\\{LibaryName}.library");
+            solution.Project.BuildLibrary(OutputPath, LibaryName, true);
+            if (solution.Project.Contains("Testing"))
             {
+                Console.WriteLine("Download Test programm");
+            }
 
-                Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
-                Console.WriteLine($"Generate Boot Project: {LibaryName}");
-                //solution.Project.GenerateBootProject(LibaryName);
-                Console.WriteLine($"Activate Configuration:");
-                solution.Project.ActivateConfiguration();
-                //Console.WriteLine("StartRestartTwinCAT");
-                //solution.Project.StartRestartTwinCAT();
-            }
-            else
-            {
-                Console.WriteLine($"CheckAllObjects: {solution.Project.CheckAllObjects(LibaryName)}");
-                Console.WriteLine($"BuildLibrary: {OutputPath}/{LibaryName}.library");
-                solution.Project.BuildLibrary(OutputPath, LibaryName, install);
-            }
+
+
 
             solution.Close();
             Console.WriteLine("==============================================================================");
