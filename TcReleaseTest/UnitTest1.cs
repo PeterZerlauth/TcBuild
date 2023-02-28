@@ -76,7 +76,7 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod09()
         {
-            bool result = solution.Project.GenerateBootProject("Control");
+            bool result = solution.Project.GenerateBootProject("Testing");
             Assert.IsTrue(result, "GenerateBootProject");
         }
 
