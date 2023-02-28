@@ -1,6 +1,8 @@
 using System;
+using System.IO.Compression;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Runtime.CompilerServices;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 
 namespace TcReleaseTest
 {
@@ -14,6 +16,7 @@ namespace TcReleaseTest
         [TestMethod]
         public void TestMethod01()
         {
+            ZipFile.ExtractToDirectory(Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject.zip", Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject", true);
             string solutionFilePath = Directory.GetCurrentDirectory() + "\\resources\\TwinCATProject\\TwinCATProject.sln";
             Assert.IsTrue(File.Exists(solutionFilePath), "Solution.Exists");
         }
