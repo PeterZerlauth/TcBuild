@@ -44,11 +44,11 @@ namespace TcRelease
             if (solution.Project.Contains("Testing"))
             {
                 // Run
-                Console.WriteLine("Download Test programm");
+                Console.WriteLine("Testing project found");
+                Console.WriteLine($"GenerateBootProject: {solution.Project.GenerateBootProject("Testing")}");
+                Console.WriteLine($"ActivateConfiguration: {solution.Project.ActivateConfiguration()}");
+                Console.WriteLine($"StartRestartTwinCAT: {solution.Project.StartRestartTwinCAT()}");
             }
-
-
-
 
             solution.Close();
             Console.WriteLine("==============================================================================");
