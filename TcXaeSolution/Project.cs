@@ -189,7 +189,18 @@ namespace TcXae
             return false;
          
         }
-        public bool ActivateConfiguration()
+
+        public bool IsTwinCATStarted()
+        {
+            Task.Delay(1000).Wait();
+            if (_systemManager != null)
+            {
+                return _systemManager.IsTwinCATStarted();
+            }
+            return false;
+        }
+
+            public bool ActivateConfiguration()
         {
             if (_systemManager != null)
             {

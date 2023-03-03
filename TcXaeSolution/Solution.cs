@@ -55,7 +55,7 @@ namespace TcXae
             }
             catch (Exception)
             {
-                Task.Delay(5000).Wait();
+                Task.Delay(2000).Wait();
                 _dte.Solution.Open(solutionFilePath);
 
             }
