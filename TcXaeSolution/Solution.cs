@@ -39,7 +39,6 @@ namespace TcXae
 
         public bool Open(string solutionFilePath)
         {
-
             if (String.IsNullOrEmpty(solutionFilePath))
                 { return false; }
 
@@ -57,19 +56,16 @@ namespace TcXae
             {
                 Task.Delay(2000).Wait();
                 _dte.Solution.Open(solutionFilePath);
-
             }
 
             if (_dte.Solution.IsDirty)
                 { return false; }
 
             return _dte.Solution.IsOpen;
-
         }
 
         public bool Close()
         {
-  
             _dte.Solution.Close();
             _dte.Quit();
 
