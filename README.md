@@ -1,4 +1,4 @@
-# TcRelease
+# TcBuild
 # A Twincat 3 Library Release and Build tool
 
 - task: CmdLine@2
