@@ -1,5 +1,5 @@
 # TcBuild
-# A Twincat 3 Library Release and Build tool
+A Twincat 3 Library Release and Build tool
 
 - task: CmdLine@2
   displayName: Build Twincat 3 Library 
