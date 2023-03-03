@@ -48,6 +48,15 @@ namespace TcRelease
                 Console.WriteLine($"GenerateBootProject: {solution.Project.GenerateBootProject("Testing")}");
                 Console.WriteLine($"ActivateConfiguration: {solution.Project.ActivateConfiguration()}");
                 Console.WriteLine($"StartRestartTwinCAT: {solution.Project.StartRestartTwinCAT()}");
+
+                Console.Write("Wait for Twincat");
+                while (!solution.Project.IsTwinCATStarted())
+                {
+                    Console.Write(".");
+                }
+                Console.WriteLine("");
+                Task.Delay(2000).Wait();
+
             }
 
             solution.Close();
