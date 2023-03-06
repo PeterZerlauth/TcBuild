@@ -32,7 +32,6 @@ namespace TcXae
                             if (Project.Name == projectName)
                             {
                                 _systemManager = (ITcSysManager15)Project.Object;
-
                                 result = true;
                             }
                         }
@@ -230,6 +229,7 @@ namespace TcXae
                
             }
         }
+
 
 
 

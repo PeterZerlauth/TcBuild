@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using TcXae;
+using TwinCAT;
+using TwinCAT.Ads;
 
 namespace TcRelease
 {
@@ -15,8 +17,10 @@ namespace TcRelease
         
         static void Main(string[] args)
         {
+
+            AdsClient client = new AdsClient();
             Console.WriteLine("==============================================================================");
-            Console.WriteLine("TcRelease.exe");
+            Console.WriteLine("TcBuild.exe");
             Console.WriteLine("A Twincat 3 library release tool");
             string? SolutionFilePath = @"C:\source\repos\TcRelease\TcReleaseTest\bin\Debug\net6.0\resources\TwinCATProject.sln";
             string? ProjectName = @"TwinCATProject";
@@ -54,6 +58,21 @@ namespace TcRelease
                 {
                     Console.Write(".");
                 }
+
+                client.Connect(solution.Project.NetId, 851);
+                var state = client.ReadValue<ushort>("MAIN.fbTestsuites.eState");
+                if (state == 1) 
+                {
+                    client.WriteValue<string>("MAIN.fbTestsuites.sFilePathName", OutputPath);
+                    client.WriteValue<ushort>("MAIN.fbTestsuites.eState", 2);
+                }
+                Task.Delay(100).Wait();
+                while (client.ReadValue<ushort>("MAIN.fbTestsuites.eState") != 1)
+                {
+                    Task.Delay(100).Wait();
+                }
+
+
                 Console.WriteLine("");
                 Task.Delay(2000).Wait();
 
