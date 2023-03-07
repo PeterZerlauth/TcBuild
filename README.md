@@ -7,10 +7,7 @@ A Twincat 3 Library Release and Build tool
   inputs:
         failOnStderr: true
         script: '"C:\source\repos\TcRelease\TcRelease.exe" -c "Release" -v "$(System.DefaultWorkingDirectory)\Tc3_Machine.sln" -p Tc3_Machine -l Tc3_Machine -o "c:\source"'
-
-
-![grafik](https://user-images.githubusercontent.com/48495545/219626574-c3afa70e-b82a-4424-8f51-657d1cbd2dc3.png)
-
+![grafik](https://user-images.githubusercontent.com/48495545/223529127-345275c5-a1bc-4d0a-8983-9d566c587142.png)
 
 <a href="https://www.buymeacoffee.com/9wjvwz24g6b"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a beer&emoji=🍺&slug=9wjvwz24g6b&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
