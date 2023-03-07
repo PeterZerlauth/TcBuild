@@ -60,18 +60,21 @@ namespace TcRelease
                 }
 
                 client.Connect(solution.Project.NetId, 851);
-                var state = client.ReadValue<ushort>("MAIN.fbTestsuites.eState");
-                if (state == 1) 
+                ushort value;
+                client.TryReadValue<ushort>("MAIN.fbTestsuites.eState", out value);
+                Console.WriteLine(value);
+                if (value == 1) 
                 {
-                    client.WriteValue<string>("MAIN.fbTestsuites.sFilePathName", OutputPath);
-                    client.WriteValue<ushort>("MAIN.fbTestsuites.eState", 2);
+                    client.TryWriteValue<string>("MAIN.fbTestsuites.sFilePathName", OutputPath + "\\report.xml");
+                    client.TryWriteValue<ushort>("MAIN.fbTestsuites.eRequest", 2);
                 }
                 Task.Delay(100).Wait();
-                while (client.ReadValue<ushort>("MAIN.fbTestsuites.eState") != 1)
+                client.TryReadValue<ushort>("MAIN.fbTestsuites.eState", out value);
+                while (value != 1)
                 {
+                    client.TryReadValue<ushort>("MAIN.fbTestsuites.eState", out value);
                     Task.Delay(100).Wait();
                 }
-
 
                 Console.WriteLine("");
                 Task.Delay(2000).Wait();

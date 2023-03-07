@@ -64,17 +64,16 @@ namespace UnitTests
         [TestMethod]
         public void TestMethod08()
         {
-            bool result = solution.Project.ActivateConfiguration();
-            Assert.IsTrue(result, "ActivateConfiguration");
+            bool result = solution.Project.GenerateBootProject("Testing");
+            Assert.IsTrue(result, "GenerateBootProject");
         }
 
         [TestMethod]
         public void TestMethod09()
         {
-            bool result = solution.Project.GenerateBootProject("Testing");
-            Assert.IsTrue(result, "GenerateBootProject");
+            bool result = solution.Project.ActivateConfiguration();
+            Assert.IsTrue(result, "ActivateConfiguration");
         }
-
 
         [TestMethod]
         public void TestMethod10()

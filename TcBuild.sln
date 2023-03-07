@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcBuild", "TcBuild\TcBuild.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TcXaeSolution", "TcXaeSolution\TcXaeSolution.csproj", "{97CF7380-E95D-4F9E-8717-FCA6AAAC3807}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{23D4179C-19E6-4DA8-982F-86442BCA57DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{23D4179C-19E6-4DA8-982F-86442BCA57DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

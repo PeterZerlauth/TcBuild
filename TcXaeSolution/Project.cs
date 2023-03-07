@@ -191,7 +191,7 @@ namespace TcXae
 
         public bool IsTwinCATStarted()
         {
-            Task.Delay(1000).Wait();
+            Task.Delay(500).Wait();
             if (_systemManager != null)
             {
                 return _systemManager.IsTwinCATStarted();
