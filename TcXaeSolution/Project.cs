@@ -20,30 +20,26 @@ namespace TcXae
 
         public bool Open(string projectName)
         {
-            bool result = false;
+            if (String.IsNullOrEmpty(projectName) || (_solution == null))
+            {
+                return false;
+            }
             try
             {
-                if (!String.IsNullOrEmpty(projectName))
+                foreach (EnvDTE.Project Project in _solution.Projects)
                 {
-                    if (_solution != null)
+                    if (Project.Name == projectName)
                     {
-                        foreach (EnvDTE.Project Project in _solution.Projects)
-                        {
-                            if (Project.Name == projectName)
-                            {
-                                _systemManager = (ITcSysManager15)Project.Object;
-                                result = true;
-                            }
-                        }
+                        _systemManager = (ITcSysManager15)Project.Object;
+                        return true;
                     }
                 }
             }
             catch
             {
-                result = false;
+                return false;
             }
-           
-            return result;
+            return false;
         }
 
         public void Delete()
@@ -137,31 +133,34 @@ namespace TcXae
 
         public bool BuildLibrary(string OutputPath, string LibaryName, bool Install)
         {
-            if (!String.IsNullOrEmpty(OutputPath) && !String.IsNullOrEmpty(LibaryName))
+         
+            string outputPath = Path.GetFullPath(OutputPath + "\\" + LibaryName + ".library").Replace("\\", "/");
+          
+            if (String.IsNullOrEmpty(OutputPath) || String.IsNullOrEmpty(LibaryName)) 
             {
-                string outputPath = Path.GetFullPath(OutputPath + "\\" + LibaryName + ".library").Replace("\\", "/");
-                Directory.Exists(outputPath);
+                return false;
+            }
+
+            try
+            {
+                ITcSmTreeItem? treeItem = null;
                 if (_systemManager != null)
                 {
-                    try
-                    {
-                        ITcSmTreeItem treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
-                        ITcPlcIECProject2 iecProject = (ITcPlcIECProject2)treeItem;
-                        if (iecProject != null)
-                        {
-                            iecProject.SaveAsLibrary(outputPath, Install);
-                            return true;
-                        }
-                        return false;
-                    }
-                    catch (Exception)
-                    {
-                        return false;
-                    }
+                   treeItem = _systemManager.LookupTreeItem($"TIPC^{LibaryName}^{LibaryName} Project");
+                }
+                
+                ITcPlcIECProject2? iecProject = (ITcPlcIECProject2)treeItem;
+                if (iecProject != null)
+                {
+                    iecProject.SaveAsLibrary(outputPath, Install);
+                    return true;
                 }
                 return false;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool GenerateBootProject(string PlcName)

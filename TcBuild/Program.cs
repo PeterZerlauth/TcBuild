@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 using TcXae;
 using TwinCAT;
 using TwinCAT.Ads;
+using static System.Net.Mime.MediaTypeNames;
+using TwinCAT.Ads.TypeSystem;
 
 namespace TcRelease
 {
@@ -42,7 +44,12 @@ namespace TcRelease
             TcXae.Solution solution = new TcXae.Solution();
             Console.WriteLine($"Solution Open: {SolutionFilePath} {solution.Open(SolutionFilePath)}");
             Console.WriteLine($"Project Open: {ProjectName} {solution.Project.Open(ProjectName)}");
-            Console.WriteLine($"CheckAllObjects: {LibaryName} {solution.Project.CheckAllObjects(LibaryName)}");
+            bool state = solution.Project.CheckAllObjects(LibaryName);
+            Console.WriteLine($"CheckAllObjects: {LibaryName} {state}");
+            if (!state )
+            {
+                solution.Close();
+            }
             Console.WriteLine($"BuildLibrary: {OutputPath}\\{LibaryName}.library");
             solution.Project.BuildLibrary(OutputPath, LibaryName, true);
             if (solution.Project.Contains("Testing"))
@@ -58,21 +65,32 @@ namespace TcRelease
                 {
                     Console.Write(".");
                 }
+                Console.WriteLine("");
 
+                string netid = solution.Project.NetId;
+                int port = 851;
+                Console.WriteLine($"Connect to {netid} {port.ToString()}");
                 client.Connect(solution.Project.NetId, 851);
-                ushort value;
-                client.TryReadValue<ushort>("MAIN.fbTestsuites.eState", out value);
-                Console.WriteLine(value);
-                if (value == 1) 
+
+                bool IsConnected = client.IsConnected;
+                
+                if (!IsConnected)
                 {
-                    client.TryWriteValue<string>("MAIN.fbTestsuites.sFilePathName", OutputPath + "\\report.xml");
-                    client.TryWriteValue<ushort>("MAIN.fbTestsuites.eRequest", 2);
+                    Console.WriteLine($"client is connected: {IsConnected}");
+                }
+
+                E_State value = client.ReadValue<E_State>("MAIN.fbTestsuites.eState");
+                if (value == E_State.Stopped) 
+                {
+                    client.WriteValue<string>("MAIN.fbTestsuites.sFilePathName", OutputPath + "\\report.xml");
+                    client.WriteValue<E_State>("MAIN.fbTestsuites.eRequest", E_State.Started);
                 }
                 Task.Delay(100).Wait();
-                client.TryReadValue<ushort>("MAIN.fbTestsuites.eState", out value);
-                while (value != 1)
+                value = client.ReadValue<E_State>("MAIN.fbTestsuites.eState");
+                while (value != E_State.Stopped)
                 {
-                    client.TryReadValue<ushort>("MAIN.fbTestsuites.eState", out value);
+                    Console.Write(".");
+                    value = client.ReadValue<E_State>("MAIN.fbTestsuites.eState");
                     Task.Delay(100).Wait();
                 }
 
@@ -84,5 +102,19 @@ namespace TcRelease
             solution.Close();
             Console.WriteLine("==============================================================================");
         }
+        enum E_State : ushort
+        {
+            Init = 0,
+            Starting = 2,
+            Started = 3,
+            Stopping = 4,
+            Aborting = 5,
+            Aborted = 6,
+            Reset = 7,
+            Stopped = 1
+
+        }
     }
+
+ 
 }
