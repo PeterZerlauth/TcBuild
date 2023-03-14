@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
 trigger:
-- '*'
+- 'none'
 
 pool: 'Default'    # self-hosted agent  
 
@@ -41,4 +41,14 @@ steps:
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)' 
 
-  
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_PeterZerlauth'
+    repositoryName: 'PeterZerlauth/TcBuild'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(Version)'
+    title: 'TcBuild'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
