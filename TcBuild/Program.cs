@@ -82,7 +82,7 @@ namespace TcRelease
                 E_State value = client.ReadValue<E_State>("MAIN.fbTestsuites.eState");
                 if (value == E_State.Stopped) 
                 {
-                    client.WriteValue<string>("MAIN.fbTestsuites.sFilePathName", OutputPath + "\\report.xml");
+                    client.WriteValue<string>("MAIN.fbTestsuites.stOptions.sFilePathName", OutputPath + "\\report.xml");
                     client.WriteValue<E_State>("MAIN.fbTestsuites.eRequest", E_State.Started);
                 }
                 Task.Delay(100).Wait();
